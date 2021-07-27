@@ -2,6 +2,7 @@ package software.plusminus.authentication;
 
 import lombok.Data;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,6 +11,6 @@ public class AuthenticationParameters {
 
     private String username;
     private Set<String> roles;
-    private Map<String, ?> otherParameters;
+    private Map<String, ?> otherParameters = Collections.emptyMap();
     
 }
