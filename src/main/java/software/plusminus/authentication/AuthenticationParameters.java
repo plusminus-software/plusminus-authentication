@@ -10,7 +10,7 @@ import java.util.Set;
 public class AuthenticationParameters {
 
     private String username;
-    private Set<String> roles;
+    private Set<String> roles = Collections.emptySet();
     private Map<String, ?> otherParameters = Collections.emptyMap();
     
 }
