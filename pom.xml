@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>software.plusminus</groupId>
-    <artifactId>plusminus-authentication</artifactId>
+    <artifactId>plusminus-security</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <parent>
@@ -16,8 +16,8 @@
     </parent>
 
     <name>Plusminus Authentication</name>
-    <description>Basic authentication abstraction.</description>
-    <url>https://github.com/plusminus-software/plusminus-authentication</url>
+    <description>Basic security abstraction.</description>
+    <url>https://github.com/plusminus-software/plusminus-security</url>
 
     <licenses>
         <license>
@@ -40,8 +40,28 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/plusminus-software/plusminus-authentication.git</connection>
-        <developerConnection>scm:git:ssh://github.com:plusminus-software/plusminus-authentication.git</developerConnection>
-        <url>https://github.com/plusminus-software/plusminus-authentication/tree/main</url>
+        <connection>scm:git:git://github.com/plusminus-software/plusminus-security.git</connection>
+        <developerConnection>scm:git:ssh://github.com:plusminus-software/plusminus-security.git</developerConnection>
+        <url>https://github.com/plusminus-software/plusminus-security/tree/main</url>
     </scm>
+
+    <dependencies>
+        <dependency>
+            <groupId>software.plusminus</groupId>
+            <artifactId>plusminus-inject</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+        </dependency>
+    </dependencies>
 </project>
