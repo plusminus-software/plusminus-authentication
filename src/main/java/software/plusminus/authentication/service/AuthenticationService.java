@@ -1,11 +1,12 @@
-package software.plusminus.authentication;
+package software.plusminus.authentication.service;
+
+import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Service;
+import software.plusminus.security.Security;
 
 import java.util.List;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
-import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Service;
-import software.plusminus.security.Security;
 
 @Service
 public class AuthenticationService {

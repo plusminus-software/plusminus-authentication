@@ -1,10 +1,12 @@
-package software.plusminus.authentication;
+package software.plusminus.authentication.service;
+
+import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
+import software.plusminus.security.TokenPlace;
 
 import java.util.stream.Stream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Component;
 
 @Component
 public class TokenFetcher {

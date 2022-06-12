@@ -1,8 +1,10 @@
-package software.plusminus.authentication;
+package software.plusminus.authentication.service;
+
+import software.plusminus.security.Security;
+import software.plusminus.security.TokenPlace;
 
 import java.util.Collections;
 import java.util.Map;
-import software.plusminus.security.Security;
 
 public interface Authenticator {
 
