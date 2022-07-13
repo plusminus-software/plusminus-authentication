@@ -2,7 +2,7 @@ package software.plusminus.authentication.service;
 
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
-import software.plusminus.security.TokenPlace;
+import software.plusminus.authentication.model.TokenPlace;
 
 import java.util.stream.Stream;
 import javax.servlet.http.Cookie;
@@ -26,19 +26,20 @@ public class TokenFetcher {
 
     @Nullable
     private String getFromHeader(TokenPlace tokenPlace, HttpServletRequest request) {
-        if (!tokenPlace.isInHeaders()) {
+        if (tokenPlace.getHeadersKey() == null) {
             return null;
         }
-        return request.getHeader(tokenPlace.getKey());
+        return request.getHeader(tokenPlace.getHeadersKey());
     }
 
     @Nullable
     private String getFromCookies(TokenPlace tokenPlace, HttpServletRequest request) {
-        if (!tokenPlace.isInCookies()) {
+        if (tokenPlace.getCookiesKey() == null
+                || request.getCookies() == null) {
             return null;
         }
         return Stream.of(request.getCookies())
-                .filter(c -> tokenPlace.getKey().equals(c.getName()))
+                .filter(c -> tokenPlace.getCookiesKey().equals(c.getName()))
                 .findFirst()
                 .map(Cookie::getValue)
                 .orElse(null);
