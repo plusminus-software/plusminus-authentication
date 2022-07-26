@@ -27,19 +27,19 @@ public class UnauthenticatedHandler {
         if (publicEndpointService.isPublicEndpoint(handlerMethod)) {
             return true;
         }
-        if (isApiEndpoint(request)) {
-            throw new NonPublicApiException();
-        } else {
+        if (isHtmlEndpoint(request)) {
             try {
                 response.sendRedirect(loginPage);
             } catch (IOException e) {
                 throw new UncheckedIOException(e);
             }
             return false;
+        } else {
+            throw new NonPublicApiException();
         }
     }
     
-    private boolean isApiEndpoint(HttpServletRequest request) {
+    private boolean isHtmlEndpoint(HttpServletRequest request) {
         return Collections.list(request.getHeaders("accept")).stream()
                 .anyMatch(header -> header.startsWith("text/html"));
         
