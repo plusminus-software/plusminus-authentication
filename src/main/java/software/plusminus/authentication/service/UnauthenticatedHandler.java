@@ -24,7 +24,7 @@ public class UnauthenticatedHandler {
                                          HttpServletResponse response, 
                                          HandlerMethod handlerMethod) {
         
-        if (publicEndpointService.isPublicEndpoint(handlerMethod)) {
+        if (publicEndpointService.isPublicEndpoint(request, handlerMethod)) {
             return true;
         }
         if (isHtmlEndpoint(request)) {
