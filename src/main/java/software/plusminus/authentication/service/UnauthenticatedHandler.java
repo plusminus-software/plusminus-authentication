@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.method.HandlerMethod;
 import software.plusminus.authentication.exception.NonPublicApiException;
+import software.plusminus.authentication.exception.NotFoundException;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 public class UnauthenticatedHandler {
     
     private PublicEndpointService publicEndpointService;
-    @Value("${security.loginPage:/login}")
+    @Value("${security.loginPage:#{null}}")
     private String loginPage; 
 
     @SuppressFBWarnings("UNVALIDATED_REDIRECT")
@@ -27,15 +28,20 @@ public class UnauthenticatedHandler {
         if (publicEndpointService.isPublicEndpoint(request, handlerMethod)) {
             return true;
         }
-        if (isHtmlEndpoint(request)) {
-            try {
-                response.sendRedirect(loginPage);
-            } catch (IOException e) {
-                throw new UncheckedIOException(e);
-            }
-            return false;
-        } else {
+        if (!isHtmlEndpoint(request)) {
             throw new NonPublicApiException();
+        }
+        if (loginPage == null) {
+            throw new NotFoundException();
+        }
+        if (loginPage.equals(request.getRequestURI())) {
+            return true;
+        }
+        try {
+            response.sendRedirect(loginPage);
+            return false;
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
         }
     }
     

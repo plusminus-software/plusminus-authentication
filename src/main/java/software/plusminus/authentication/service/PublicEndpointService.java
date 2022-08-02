@@ -28,9 +28,11 @@ public class PublicEndpointService {
         if (isPublicUri(request)) {
             return true;
         }
-        return !AnnotationUtils.findMergedAnnotationsOnMethodAndClass(
-                handlerMethod.getMethod(),
-                annotation -> annotation.annotationType() == Public.class).isEmpty();
+        Public publicAnnotation = AnnotationUtils.findAnnotation(Public.class, handlerMethod.getMethod());
+        if (publicAnnotation != null) {
+            return publicAnnotation.value();
+        }
+        return false;
     }
 
     private boolean isPublicController(HandlerMethod handlerMethod) {
