@@ -7,6 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import software.plusminus.authentication.properties.SecurityProperties;
 import software.plusminus.authentication.service.AuthenticationService;
 
 import static software.plusminus.check.Checks.check;
@@ -19,9 +20,16 @@ public class AuthenticationAutoconfigTest {
     
     @Autowired(required = false)
     private AuthenticationService authenticationService;
+    @Autowired(required = false)
+    private SecurityProperties securityProperties;
     
     @Test
     public void defaultAuthenticationServiceIsPresent() {
         check(authenticationService).isNotNull();
+    }
+    
+    @Test
+    public void securityPropertiesIsPresent() {
+        check(securityProperties).isNotNull();
     }
 }

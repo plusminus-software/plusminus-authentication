@@ -22,15 +22,15 @@ public class PublicEndpointService {
     private SecurityProperties properties;
 
     public boolean isPublicEndpoint(HttpServletRequest request, HandlerMethod handlerMethod) {
+        Public publicAnnotation = AnnotationUtils.findAnnotation(Public.class, handlerMethod.getMethod());
+        if (publicAnnotation != null) {
+            return publicAnnotation.value();
+        }
         if (isPublicController(handlerMethod)) {
             return true;
         }
         if (isPublicUri(request)) {
             return true;
-        }
-        Public publicAnnotation = AnnotationUtils.findAnnotation(Public.class, handlerMethod.getMethod());
-        if (publicAnnotation != null) {
-            return publicAnnotation.value();
         }
         return false;
     }
