@@ -7,6 +7,7 @@ import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 import software.plusminus.authentication.service.UnauthenticatedHandler;
 import software.plusminus.security.SecurityRequest;
 
+import javax.servlet.ServletRequestWrapper;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -31,7 +32,16 @@ public class UnauthenticatedInterceptor extends HandlerInterceptorAdapter {
     }
     
     private boolean isAuthenticated(HttpServletRequest request) {
-        return request instanceof SecurityRequest;
+        boolean isSecurityRequest = request instanceof SecurityRequest;
+        if (isSecurityRequest) {
+            return true;
+        }
+        boolean isWrapper = request instanceof ServletRequestWrapper;
+        if (isWrapper) {
+            ServletRequestWrapper wrapper = ServletRequestWrapper.class.cast(request);
+            return wrapper.getRequest() instanceof SecurityRequest;
+        }
+        return false;
     }
     
     private HandlerMethod getHandlerMethod(Object handler) {
