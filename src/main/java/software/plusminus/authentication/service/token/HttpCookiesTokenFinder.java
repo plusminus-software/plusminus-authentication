@@ -1,14 +1,17 @@
 package software.plusminus.authentication.service.token;
 
 import lombok.AllArgsConstructor;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import software.plusminus.context.Context;
+import software.plusminus.security.service.token.TokenFinder;
 
 import java.util.stream.Stream;
 import javax.annotation.Nullable;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+@Order(2)
 @AllArgsConstructor
 @Component
 public class HttpCookiesTokenFinder implements TokenFinder {
