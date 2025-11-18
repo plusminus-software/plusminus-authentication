@@ -12,7 +12,8 @@ import java.util.List;
 @Data
 @Validated
 @Configuration
-@ConfigurationProperties("security")
+@ConfigurationProperties("plusminus.security")
 public class SecurityProperties {
     private List<@Regex String> openUris = Collections.emptyList();
+    private String loginPage;
 }
