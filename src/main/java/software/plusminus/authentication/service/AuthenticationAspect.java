@@ -10,7 +10,7 @@ import software.plusminus.context.Context;
 import software.plusminus.context.WritableContext;
 import software.plusminus.http.HttpFilter;
 import software.plusminus.listener.Joinpoint;
-import software.plusminus.security.model.Security;
+import software.plusminus.security.Security;
 
 import javax.servlet.http.HttpServletRequest;
 

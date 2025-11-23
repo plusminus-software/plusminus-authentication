@@ -13,7 +13,7 @@ import software.plusminus.authentication.properties.SecurityProperties;
 import software.plusminus.authentication.service.endpoint.PublicEndpointChecker;
 import software.plusminus.context.Context;
 import software.plusminus.listener.Stop;
-import software.plusminus.security.model.Security;
+import software.plusminus.security.Security;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;

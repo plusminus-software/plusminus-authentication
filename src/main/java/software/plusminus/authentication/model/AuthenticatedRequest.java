@@ -1,7 +1,7 @@
 package software.plusminus.authentication.model;
 
 import lombok.Getter;
-import software.plusminus.security.model.Security;
+import software.plusminus.security.Security;
 
 import java.security.Principal;
 import javax.servlet.http.HttpServletRequest;

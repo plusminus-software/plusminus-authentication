@@ -2,7 +2,7 @@ package software.plusminus.authentication.service.token;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import software.plusminus.security.model.Security;
+import software.plusminus.security.Security;
 import software.plusminus.security.service.SecurityProvider;
 
 import java.util.List;
