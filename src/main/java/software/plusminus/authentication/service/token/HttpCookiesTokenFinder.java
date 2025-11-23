@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import software.plusminus.context.Context;
+import software.plusminus.security.CookieKey;
 
+import java.util.List;
 import java.util.stream.Stream;
 import javax.annotation.Nullable;
 import javax.servlet.http.Cookie;
@@ -15,9 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class HttpCookiesTokenFinder implements TokenFinder {
 
-    public static final String AUTHORIZATION_COOKIE_KEY = "Authorization";
-
     private Context<HttpServletRequest> httpServletRequestContext;
+    private List<CookieKey> cookieKeys;
 
     @Nullable
     @Override
@@ -27,7 +28,9 @@ public class HttpCookiesTokenFinder implements TokenFinder {
             return null;
         }
         return Stream.of(request.getCookies())
-                .filter(c -> AUTHORIZATION_COOKIE_KEY.equals(c.getName()))
+                .filter(c -> cookieKeys.stream()
+                        .map(CookieKey::cookieKey)
+                        .anyMatch(cookieKey -> cookieKey != null && cookieKey.equals(c.getName())))
                 .findFirst()
                 .map(Cookie::getValue)
                 .orElse(null);
