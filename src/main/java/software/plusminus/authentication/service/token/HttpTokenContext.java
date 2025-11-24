@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import software.plusminus.authentication.util.CookieUtil;
 import software.plusminus.context.Context;
-import software.plusminus.security.service.TokenManager;
+import software.plusminus.security.service.TokenContext;
 
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -15,17 +15,17 @@ import javax.servlet.http.HttpServletResponse;
 
 @AllArgsConstructor
 @Component
-public class HttpTokenManager implements TokenManager {
+public class HttpTokenContext implements TokenContext {
 
-    private static final String HEADER_NAME = "Authorization";
-    private static final String COOKIE_KEY = "JWT-TOKEN"; //TODO rename to neutral name
+    public static final String HEADER_NAME = "Authorization";
+    public static final String COOKIE_NAME = "JWT-TOKEN"; //TODO rename to neutral name
 
     private Context<HttpServletRequest> httpServletRequestContext;
     private Context<HttpServletResponse> httpServletResponseContext;
 
     @Nullable
     @Override
-    public String fetchToken() {
+    public String getToken() {
         Optional<HttpServletRequest> request = httpServletRequestContext.optional();
         if (!request.isPresent()) {
             return null;
@@ -35,7 +35,7 @@ public class HttpTokenManager implements TokenManager {
             return token;
         }
         return Stream.of(request.get().getCookies())
-                .filter(c -> COOKIE_KEY.equals(c.getName()))
+                .filter(c -> COOKIE_NAME.equals(c.getName()))
                 .findFirst()
                 .map(Cookie::getValue)
                 .orElse(null);
@@ -48,7 +48,7 @@ public class HttpTokenManager implements TokenManager {
             return false;
         }
         CookieUtil.create(response.get(),
-                COOKIE_KEY,
+                COOKIE_NAME,
                 token,
                 "localhost");
         return true;
@@ -60,6 +60,6 @@ public class HttpTokenManager implements TokenManager {
         if (!response.isPresent()) {
             return;
         }
-        CookieUtil.clear(response.get(), COOKIE_KEY);
+        CookieUtil.clear(response.get(), COOKIE_NAME);
     }
 }
