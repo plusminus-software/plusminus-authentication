@@ -34,6 +34,9 @@ public class HttpTokenContext implements TokenContext {
         if (token != null) {
             return token;
         }
+        if (request.get().getCookies() == null) {
+            return null;
+        }
         return Stream.of(request.get().getCookies())
                 .filter(c -> COOKIE_NAME.equals(c.getName()))
                 .findFirst()
