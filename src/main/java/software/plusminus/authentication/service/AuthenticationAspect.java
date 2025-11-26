@@ -31,7 +31,7 @@ public class AuthenticationAspect implements Before {
     public void before() {
         Security security = securityContext.get();
         if (security != null) {
-            httpServletRequestContext.set(
+            httpServletRequestContext.setOrReplace(
                     new AuthenticatedRequest(
                             httpServletRequestContext.get(),
                             security
