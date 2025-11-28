@@ -20,13 +20,13 @@ public class HttpTokenContext implements TokenContext {
     public static final String HEADER_NAME = "Authorization";
     public static final String COOKIE_NAME = "JWT-TOKEN"; //TODO rename to neutral name
 
-    private Context<HttpServletRequest> httpServletRequestContext;
-    private Context<HttpServletResponse> httpServletResponseContext;
+    private Context<HttpServletRequest> requestContext;
+    private Context<HttpServletResponse> responseContext;
 
     @Nullable
     @Override
     public String getToken() {
-        Optional<HttpServletRequest> request = httpServletRequestContext.optional();
+        Optional<HttpServletRequest> request = requestContext.optional();
         if (!request.isPresent()) {
             return null;
         }
@@ -46,7 +46,7 @@ public class HttpTokenContext implements TokenContext {
 
     @Override
     public boolean setToken(String token) {
-        Optional<HttpServletResponse> response = httpServletResponseContext.optional();
+        Optional<HttpServletResponse> response = responseContext.optional();
         if (!response.isPresent()) {
             return false;
         }
@@ -59,7 +59,7 @@ public class HttpTokenContext implements TokenContext {
 
     @Override
     public void clearToken() {
-        Optional<HttpServletResponse> response = httpServletResponseContext.optional();
+        Optional<HttpServletResponse> response = responseContext.optional();
         if (!response.isPresent()) {
             return;
         }
